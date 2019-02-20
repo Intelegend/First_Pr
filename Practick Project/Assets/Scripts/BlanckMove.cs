@@ -31,17 +31,17 @@ public class BlanckMove : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, transform.rotation.y + 180, 0), 0.2f);
         if (Input.GetKey(KeyCode.A))
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, transform.rotation.y, 0), 0.2f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, transform.rotation.y,0), 0.2f);
     }
     void FixedUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            gameObject.GetComponent<Animator>().SetTrigger("Attack");
+            
         }
 
-        gameObject.GetComponent<Animator>().SetFloat("Walk", x, 0.1f, Time.deltaTime);
-        gameObject.GetComponent<Animator>().SetFloat("Idle", y, 0.1f, Time.deltaTime);
+        //gameObject.GetComponent<Animator>().SetFloat("Move", x, 0.1f, Time.deltaTime);
+        //gameObject.GetComponent<Animator>().SetFloat("Idle", y, 0.1f, Time.deltaTime);
 
 
     }

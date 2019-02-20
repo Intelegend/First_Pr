@@ -6,6 +6,12 @@ TagManager:
   tags:
   - Enemy
   - Health
+  - Point_0
+  - Point_1
+  - Point_2
+  - Cube
+  - Gun
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -15,7 +21,7 @@ TagManager:
   - UI
   - 
   - 
-  - PostProcessing
+  - 
   - 
   - 
   - 

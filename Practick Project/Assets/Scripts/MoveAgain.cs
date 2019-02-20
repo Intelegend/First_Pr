@@ -10,12 +10,17 @@ public class MoveAgain : MonoBehaviour
     public Vector3 moveVector;
     public CharacterController controller;
     public Animator animator;
+    int life=100;
+    int score = 0;
+    GameObject enemy;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        enemy = GameObject.FindGameObjectWithTag("Enemy");
     }
 
     // Update is called once per frame
@@ -23,19 +28,30 @@ public class MoveAgain : MonoBehaviour
     {
         CharacterMove();
         Cravity();
+
+        if(life<=0)
+        {
+            speedMove = 0;
+        }
+        if(life>=100)
+        {
+            life = 100;
+        }
+        
     }
 
     public void CharacterMove()
     {
         if(controller.isGrounded)
         {
+            
             animator.SetBool("Jump", false);
             animator.SetBool("Fall", false);
             moveVector = Vector3.zero;
             moveVector.x = Input.GetAxis("Horizontal") * speedMove;
             moveVector.z = Input.GetAxis("Vertical") * speedMove;
-
-
+            bool b = animator.Equals("Death");
+            
             if (moveVector.x != 0 || moveVector.z!= 0)
             {
                 animator.SetBool("Move", true);
@@ -78,11 +94,52 @@ public class MoveAgain : MonoBehaviour
         {
             gravityForce -= 1f;
         }
-
+       
         if(Input.GetKeyDown(KeyCode.Space)&& controller.isGrounded)
         {
             gravityForce = -jumpForce;
+            moveVector.y = jumpForce;
             animator.SetBool("Jump", true);
         }
+    }
+    public void OnGUI()
+    {
+        GUI.Box(new Rect(0, 0, 100, 30), "Life " + life);
+        
+
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag =="Health")
+        {
+            if(life!=100)
+            {
+                life += 10;
+                Destroy(other.gameObject);
+            }
+            
+        }
+
+        if (other.gameObject.tag=="Enemy")
+        {
+            animator.SetBool("Damage", true);
+            life -= 20;
+            animator.SetBool("Damage",false);
+            transform.position = enemy.transform.position;
+        }
+        if (life<=0)
+        {
+            animator.SetBool("Death",true);
+        }
+        if (life>0)
+        {
+            animator.SetBool("Death",false);
+        }
+    }
+
+    public void Damage()
+    {
+        //smert.animator.SetBool("Attack", true); 
     }
 }

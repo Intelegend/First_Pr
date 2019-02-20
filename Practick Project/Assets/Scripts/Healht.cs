@@ -26,7 +26,7 @@ public class Healht : MonoBehaviour
     {
         if(other.gameObject.tag=="Health")
         {
-            life++;
+            life+=10;
             Destroy(other.gameObject);
         }
     }
