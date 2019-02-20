@@ -11,7 +11,7 @@ public class Gun : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             Transform g = (Transform)Instantiate(aim,transform.position,transform.rotation);
             g.GetComponent<Rigidbody>().AddForce(transform.forward * speedAim);

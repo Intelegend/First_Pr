@@ -11,8 +11,9 @@ public class MoveAgain : MonoBehaviour
     public CharacterController controller;
     public Animator animator;
     int life=100;
-    int score = 0;
+    Cost cost = new Cost();
     GameObject enemy;
+    
     
 
     // Start is called before the first frame update
@@ -105,6 +106,7 @@ public class MoveAgain : MonoBehaviour
     public void OnGUI()
     {
         GUI.Box(new Rect(0, 0, 100, 30), "Life " + life);
+        GUI.Box(new Rect(610, 0, 100, 30), "Score " +cost.score);
         
 
     }

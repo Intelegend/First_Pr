@@ -11,6 +11,7 @@ public class Cost : MonoBehaviour
     Vector3 move;
     GameObject player;
     int lifemobe = 30;
+    public int score=0;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,19 +38,16 @@ public class Cost : MonoBehaviour
             animator.SetBool("Move", false);
         }
 
-        
-
     }
+    
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            
             animator.SetBool("Attack", true);
-            animator.SetBool("Attack", false);
-
         }
-        
+        animator.SetBool("Attack", false);
+
         if (other.gameObject.tag == "Cube")
         {
             Destroy(transform.gameObject);
@@ -64,12 +62,12 @@ public class Cost : MonoBehaviour
 
             if (lifemobe == 0)
             {
+                score++;
                 animator.SetBool("Death",true);
-                Destroy(transform.gameObject);
                 
-               
+                
             }
-
+            
         }
     }
 
