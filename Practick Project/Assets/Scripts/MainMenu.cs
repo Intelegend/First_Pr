@@ -4,23 +4,23 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    public int window;
 
-    public int level;
 
     // Use this for initialization
     void Start()
     {
-
+        window = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+       
     }
     public void startGame()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("Practik");
     }
     public void exitGame()
     {
@@ -39,4 +39,14 @@ public class MainMenu : MonoBehaviour
     {
         QualitySettings.SetQualityLevel(4, true);
     }
+    public void LoadSettings()
+    {
+        SceneManager.LoadScene("Settings");
+    }
+
+    public void BackWord()
+    {
+        SceneManager.LoadScene("Gui");
+    }
+
 }

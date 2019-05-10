@@ -35,14 +35,7 @@ public class BlanckMove : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            
-        }
-
-        //gameObject.GetComponent<Animator>().SetFloat("Move", x, 0.1f, Time.deltaTime);
-        //gameObject.GetComponent<Animator>().SetFloat("Idle", y, 0.1f, Time.deltaTime);
-
+       
 
     }
 }

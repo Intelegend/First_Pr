@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scene/Gui.unity
+    guid: 672ba305462d4854d9ea4c83cf2f4ce3
+  - enabled: 1
+    path: Assets/Scene/Settings.unity
+    guid: 290dcc656632bb34aa82682e01784acf
+  - enabled: 1
+    path: Assets/Scene/Practik.unity
+    guid: fdf105c6c20cad342b40780653405944
   m_configObjects: {}

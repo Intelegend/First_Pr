@@ -24,7 +24,7 @@ public class EnemySpawn : MonoBehaviour
         if (other.gameObject.tag =="Player")
         {
             InvokeRepeating("EnemySpawner", 10f, repetate);
-           // Destroy(gameObject, 11);
+             //Destroy(gameObject, 11);
             //gameObject.GetComponent<BoxCollider>().enabled = false;
         }
 
@@ -33,6 +33,7 @@ public class EnemySpawn : MonoBehaviour
     void EnemySpawner()
     {
         Instantiate(enemy, enemyPos.position, enemyPos.rotation);
-
+        
     }
+
 }

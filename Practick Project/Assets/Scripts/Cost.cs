@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
+using Assets.Scripts;
 
 public class Cost : MonoBehaviour
 {
@@ -10,8 +13,9 @@ public class Cost : MonoBehaviour
     Animator animator;
     Vector3 move;
     GameObject player;
-    int lifemobe = 30;
-    public int score=0;
+    public int lifemobe = 30;
+    
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -33,43 +37,53 @@ public class Cost : MonoBehaviour
             animator.SetBool("Move", true);
 
         }
-        else
+        
+        if (lifemobe == 0)
         {
-            animator.SetBool("Move", false);
+            
+            animator.SetBool("Death", true);
+            speed = 0;
+            
+            Invoke("Destroyer",2);
+            
         }
-
+        
     }
     
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            animator.SetBool("Attack", true);
+            animator.SetBool("Attack",true);
+            speed = 0;
+            Invoke("False", 1);
         }
-        animator.SetBool("Attack", false);
-
-        if (other.gameObject.tag == "Cube")
-        {
-            Destroy(transform.gameObject);
-            
-        }
+        
+        
         if(other.gameObject.tag=="Bullet")
         {
             lifemobe -= 10;
             Destroy(other.gameObject);
             animator.SetBool("Damage", true);
-            animator.SetBool("Damage",false);
-
-            if (lifemobe == 0)
-            {
-                score++;
-                animator.SetBool("Death",true);
-                
-                
-            }
+            Invoke("False", 1);
+            
             
         }
+        
+    }
+    
+    public void False()
+    {
+        speed = 1;
+        animator.SetBool("Damage", false);
+        animator.SetBool("Attack", false);
     }
 
-
+    public void Destroyer()
+    {
+        Score.AddScore();
+        Destroy(gameObject);
+        
+    }
+    
 }

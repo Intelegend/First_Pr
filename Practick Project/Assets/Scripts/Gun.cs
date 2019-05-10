@@ -4,7 +4,8 @@ public class Gun : MonoBehaviour
 {
     public Transform aim;
     public GameObject point;
-    public float speedAim = 100000;
+    public float speedAim = 10;
+    
 
     void Start()
     {
@@ -16,6 +17,7 @@ public class Gun : MonoBehaviour
             Transform g = (Transform)Instantiate(aim,transform.position,transform.rotation);
             g.GetComponent<Rigidbody>().AddForce(transform.forward * speedAim);
             point.GetComponent<Light>().enabled = true;
+
         }
         if (Input.GetKeyUp(KeyCode.G))
         {
@@ -24,5 +26,6 @@ public class Gun : MonoBehaviour
 
         }
     }
+    
 }
 

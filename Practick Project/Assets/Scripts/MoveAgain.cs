@@ -1,6 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Timeline;
+using UnityEngine.SceneManagement;
+using Assets.Scripts;
 
 public class MoveAgain : MonoBehaviour
 {
@@ -13,15 +17,15 @@ public class MoveAgain : MonoBehaviour
     int life=100;
     Cost cost = new Cost();
     GameObject enemy;
-    
-    
+    bool paused = false;
+    public int score;
 
-    // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         enemy = GameObject.FindGameObjectWithTag("Enemy");
+        
     }
 
     // Update is called once per frame
@@ -38,16 +42,26 @@ public class MoveAgain : MonoBehaviour
         {
             life = 100;
         }
+        if(Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            
+        }
+
+        if(cost.lifemobe==0)
+        {
+            score++;
+        }
+
         
+       
     }
 
     public void CharacterMove()
     {
         if(controller.isGrounded)
         {
-            
-            animator.SetBool("Jump", false);
-            animator.SetBool("Fall", false);
+            animator.SetBool("Jump",false);
+            animator.SetBool("Fall",false);
             moveVector = Vector3.zero;
             moveVector.x = Input.GetAxis("Horizontal") * speedMove;
             moveVector.z = Input.GetAxis("Vertical") * speedMove;
@@ -79,6 +93,7 @@ public class MoveAgain : MonoBehaviour
             {
                 animator.SetBool("Fall", true);
             }
+            
         }
         
         moveVector.y = gravityForce;
@@ -94,6 +109,7 @@ public class MoveAgain : MonoBehaviour
         else
         {
             gravityForce -= 1f;
+            
         }
        
         if(Input.GetKeyDown(KeyCode.Space)&& controller.isGrounded)
@@ -106,8 +122,35 @@ public class MoveAgain : MonoBehaviour
     public void OnGUI()
     {
         GUI.Box(new Rect(0, 0, 100, 30), "Life " + life);
-        GUI.Box(new Rect(610, 0, 100, 30), "Score " +cost.score);
-        
+        GUI.Box(new Rect(610, 0, 100, 30), "Score "+ Score.score);
+        if (paused == true)
+        {
+            GUI.Box(new Rect(Screen.width / 2 - 80, Screen.height / 2 - 80, 100, 30), "GameOver");
+            GUILayout.BeginArea(new Rect(Screen.width / 2 - 80, Screen.height / 2 - 60, 100, 300));
+
+            if (GUILayout.Button("Restart?", GUILayout.Width(100), GUILayout.Height(25)))
+            {
+                Time.timeScale = 1;
+                paused = false;
+                SceneManager.LoadScene(2);
+            }
+            GUILayout.EndArea();
+
+            if (score == 5)
+            {
+                GUI.Box(new Rect(Screen.width / 2 - 80, Screen.height / 2 - 80, 100, 30), "You win");
+                GUILayout.BeginArea(new Rect(Screen.width / 2 - 80, Screen.height / 2 - 60, 100, 300));
+
+                if (GUILayout.Button("Exit in menu", GUILayout.Width(100), GUILayout.Height(25)))
+                {
+                    Time.timeScale = 1;
+                    paused = false;
+                    SceneManager.LoadScene(0);
+                }
+                GUILayout.EndArea();
+            }
+        }
+
 
     }
 
@@ -121,27 +164,39 @@ public class MoveAgain : MonoBehaviour
                 Destroy(other.gameObject);
             }
             
+           
         }
 
         if (other.gameObject.tag=="Enemy")
         {
             animator.SetBool("Damage", true);
+            Invoke("Damage", 1);
             life -= 20;
-            animator.SetBool("Damage",false);
-            transform.position = enemy.transform.position;
         }
         if (life<=0)
         {
             animator.SetBool("Death",true);
+            Invoke("Pause", 5);
+          
         }
         if (life>0)
         {
             animator.SetBool("Death",false);
         }
-    }
 
+    }
     public void Damage()
     {
-        //smert.animator.SetBool("Attack", true); 
+        animator.SetBool("Damage", false);
+    }
+
+    public void Pause()
+    {
+        if (!paused)
+        {
+            Time.timeScale = 0;
+            paused = true;
+
+        }
     }
 }
